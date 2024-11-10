@@ -1,16 +1,11 @@
 import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 
-import { Task, updateTask } from '../../../store/task-slice';
-
-import { updatedTaskService } from '../../../services/task-service';
-
-import { Modal } from '../../../modules/modal';
-
 import { getUserData } from '../../../hooks/getUserData';
-
+import { Modal } from '../../../modules/modal';
+import { updatedTaskService } from '../../../services/task-service';
+import { Task, updateTask } from '../../../store/task-slice';
 import { TaskForm } from '../../form/task';
-
 import { Title } from '../styles';
 
 interface Props {

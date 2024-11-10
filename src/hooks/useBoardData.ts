@@ -1,16 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import {
-  getAllColumnsService,
-} from '../services/column-service';
-
+import { getUserData } from './getUserData';
+import { getAllColumnsService } from '../services/column-service';
 import { getTasksService } from '../services/task-service';
-
 import { setColumns } from '../store/column-slice';
 import { setTasks } from '../store/task-slice';
-
-import { getUserData } from './getUserData';
 
 export const useBoardData = () => {
   const dispatch = useDispatch();
@@ -18,7 +13,6 @@ export const useBoardData = () => {
   // Состояния для обработки загрузки и ошибок
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  
 
   // Загрузка всех колонок из API
   const loadAllColumns = async () => {

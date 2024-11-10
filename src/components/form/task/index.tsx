@@ -2,7 +2,6 @@ import { FC, FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { Task } from '../../../store/task-slice';
-
 import { getCurrentDate } from '../../../utils/date-utils';
 
 const DateBlock = styled.div`

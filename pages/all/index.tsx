@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, {
   createContext,
   FC,
@@ -8,7 +9,6 @@ import React, {
 } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { Board } from '../../src/components/board/board';

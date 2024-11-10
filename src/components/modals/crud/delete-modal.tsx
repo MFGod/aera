@@ -1,16 +1,12 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import ReactDOM from 'react-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { deleteTask, Task } from '../../../store/task-slice';
-
-import { Modal } from '../../../modules/modal';
-
-import { deleteTaskService } from '../../../services/task-service';
-
 import { getUserData } from '../../../hooks/getUserData';
-
+import { Modal } from '../../../modules/modal';
+import { deleteTaskService } from '../../../services/task-service';
+import { deleteTask, Task } from '../../../store/task-slice';
 import { Text, Title } from '../styles';
 
 const Block = styled.div`

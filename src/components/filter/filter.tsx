@@ -2,9 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import { FilterType } from '../../utils/task-utils';
-
 import { FilterButton } from '../buttons/filter-button';
-
 import { FilterPanel } from './panel/filter-panel';
 
 const Div = styled.div`

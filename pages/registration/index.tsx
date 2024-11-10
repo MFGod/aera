@@ -2,7 +2,6 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import { RegistrationForm } from '../../src/components/form/auth/registration-form';
-
 import { Logo, LogoSizes } from '../../src/components/logo/logo';
 
 const Wrapper = styled.div`

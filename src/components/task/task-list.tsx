@@ -1,11 +1,10 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
+import { TaskItem } from './task-item';
 import { Task } from '../../store/task-slice';
-
 import { AddTaskButton } from '../buttons/add-button';
 
-import { TaskItem } from './task-item';
 
 const Div = styled.div`
   display: flex;

@@ -2,10 +2,8 @@ import { useMemo } from 'react';
 import styled from 'styled-components';
 
 import { StyledOpenTaskIcon } from '../../../public/assets/icons/task/open';
-
-import { calculateDaysLeft, formatDate } from '../../utils/date-utils';
-
 import { Task } from '../../store/task-slice';
+import { calculateDaysLeft, formatDate } from '../../utils/date-utils';
 
 const Wrapper = styled.div`
   display: flex;

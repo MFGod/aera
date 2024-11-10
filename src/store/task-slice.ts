@@ -1,9 +1,9 @@
 // Импортируем необходимые функции и типы из Redux Toolkit
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { getCurrentDate } from '../utils/date-utils';
 import { getUserData } from '../hooks/getUserData';
 import { updatedTaskService } from '../services/task-service';
+import { getCurrentDate } from '../utils/date-utils';
 
 export interface Task {
   userId: string;

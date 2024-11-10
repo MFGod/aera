@@ -1,6 +1,6 @@
+import { calculateDaysLeft } from './date-utils';
 import { Task } from '../store/task-slice';
 
-import { calculateDaysLeft } from './date-utils';
 
 export type FilterType = 'all' | 'recentlyAdded' | 'week' | 'none';
 

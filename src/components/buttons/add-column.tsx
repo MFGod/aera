@@ -3,9 +3,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { getUserData } from '../../hooks/getUserData';
-
 import { addColumnService } from '../../services/column-service';
-
 import { addColumn, IColumn } from '../../store/column-slice';
 
 const Wrapper = styled.div`
@@ -80,7 +78,7 @@ export const AddColumnButton = () => {
         <Input
           type="text"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={e => setTitle(e.target.value)}
           placeholder={placeholder}
           onFocus={() => setPlaceholder('')} // Убираем placeholder при фокусе
           onBlur={() => {

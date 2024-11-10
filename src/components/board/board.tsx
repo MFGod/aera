@@ -2,31 +2,23 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+import { getUserData } from '../../hooks/getUserData';
 import { useBoardData } from '../../hooks/useBoardData';
-
-import { useAppSelector } from '../../store/hooks';
-
+import {
+  deleteColumnService,
+  updateColumnsService,
+} from '../../services/column-service';
 import {
   deleteColumn,
   updateColumn,
   setColumns,
 } from '../../store/column-slice';
-
-import { filterTaskByFilter, FilterType } from '../../utils/task-utils';
-
-import {
-  deleteColumnService,
-  updateColumnsService,
-} from '../../services/column-service';
-
-import { getUserData } from '../../hooks/getUserData';
-
-import { DraggableColumn } from '../drag-column/drag-column';
-
+import { useAppSelector } from '../../store/hooks';
 import { selectFilteredTasks } from '../../store/selectors';
-
-import { Filter } from '../filter/filter';
+import { filterTaskByFilter, FilterType } from '../../utils/task-utils';
 import { AddColumnButton } from '../buttons/add-column';
+import { DraggableColumn } from '../drag-column/drag-column';
+import { Filter } from '../filter/filter';
 
 export const Wrapper = styled.div`
   padding: 12px 36px;

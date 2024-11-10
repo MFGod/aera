@@ -1,19 +1,13 @@
-import { useDispatch } from 'react-redux';
 import ReactDOM from 'react-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { getUserData } from '../../../hooks/getUserData';
-
 import { Modal } from '../../../modules/modal';
-
-import { addTask, Task } from '../../../store/task-slice';
-
-import { getCurrentDate } from '../../../utils/date-utils';
-
 import { addTaskService } from '../../../services/task-service';
-
+import { addTask, Task } from '../../../store/task-slice';
+import { getCurrentDate } from '../../../utils/date-utils';
 import { TaskForm } from '../../form/task';
-
 import { Title } from '../styles';
 
 export const Wrapper = styled.div`

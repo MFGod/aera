@@ -1,11 +1,10 @@
 import { FC, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
+import Column from './column/column';
 import { useCanDrag } from '../../../pages/all';
-
 import { Task } from '../../store/task-slice';
 
-import Column from './column/column';
 
 interface Properties {
   id: number;

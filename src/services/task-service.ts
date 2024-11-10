@@ -1,5 +1,4 @@
 import { getUserData } from '../hooks/getUserData';
-
 import { Task } from '../store/task-slice';
 
 interface CreateTaskResponse {

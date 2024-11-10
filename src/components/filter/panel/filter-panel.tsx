@@ -1,15 +1,13 @@
 import { useMemo } from 'react';
 import styled from 'styled-components';
 
+import { Search } from './search';
+import { TaskFilter } from './task-filter';
 import { useAppSelector } from '../../../store/hooks';
 import { selectFilteredTasks } from '../../../store/selectors';
-
 import { FilterType, filterTaskByFilter } from '../../../utils/task-utils';
-
 import { FilterButton } from '../../buttons/filter-button';
 
-import { TaskFilter } from './task-filter';
-import { Search } from './search';
 
 const Wrapper = styled.div<{ $isOpen: boolean }>`
   position: absolute;

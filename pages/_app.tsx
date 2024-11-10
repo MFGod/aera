@@ -1,10 +1,10 @@
+import { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { AppProps } from 'next/app';
-
-import { GlobalStyles } from '../styles/global-styles';
 
 import store from '../src/store/store';
+import { GlobalStyles } from '../styles/global-styles';
+
 
 function CustomApp({ Component, pageProps }: AppProps) {
   useEffect(() => {

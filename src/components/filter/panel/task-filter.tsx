@@ -1,11 +1,10 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import { RecentlyAddedIcon } from '../../../../public/assets/icons/filter/recently-added';
-import { ThisWeekIcon } from '../../../../public/assets/icons/filter/this-week';
 import { AllTasksIcon } from '../../../../public/assets/icons/filter/all-tasks';
 import { CheckIcon } from '../../../../public/assets/icons/filter/check';
-
+import { RecentlyAddedIcon } from '../../../../public/assets/icons/filter/recently-added';
+import { ThisWeekIcon } from '../../../../public/assets/icons/filter/this-week';
 import { FilterType } from '../../../utils/task-utils';
 
 const Wrapper = styled.div`

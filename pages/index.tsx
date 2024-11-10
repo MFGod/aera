@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import Head from 'next/head';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 import { LogoIcon } from '../public/assets/icons/logo';
@@ -55,7 +55,7 @@ const Home = () => {
         <Logo size={LogoSizes.Medium} />
 
         <Div>
-          {[Anchors.Authorization, Anchors.Registration].map((anchor) => {
+          {[Anchors.Authorization, Anchors.Registration].map(anchor => {
             switch (anchor) {
               case Anchors.Authorization:
                 return (

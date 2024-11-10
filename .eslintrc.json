@@ -1,3 +1,14 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "env": {
+    "browser": true, // Указываем, что код выполняется в браузере
+    "es2021": true // Поддержка последних возможностей ECMAScript
+  },
+  "globals": {
+    "RequestInit": "readonly" // Указываем, что RequestInit - глобальный объект в браузере
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  }
 }

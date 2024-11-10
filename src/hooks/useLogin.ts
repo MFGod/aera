@@ -1,5 +1,5 @@
-import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
+import { FormEvent, useState } from 'react';
 
 import { handleLogin } from '../services/auth-service';
 

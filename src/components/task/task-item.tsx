@@ -2,19 +2,15 @@ import { FC, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import styled from 'styled-components';
 
-import { useCanDrag } from '../../../pages/all';
-
-import { StEditIcon } from '../../../public/assets/icons/task/edit';
-import { StDeleteIcon } from '../../../public/assets/icons/task/delete';
-
-import { formatDate } from '../../utils/date-utils';
-
-import { Task } from '../../store/task-slice';
-
-import { EditingModal } from '../modals/crud/editing-modal';
-import { DeleteModal } from '../modals/crud/delete-modal';
-
 import { TaskInformation } from './task-information';
+import { useCanDrag } from '../../../pages/all';
+import { StDeleteIcon } from '../../../public/assets/icons/task/delete';
+import { StEditIcon } from '../../../public/assets/icons/task/edit';
+import { Task } from '../../store/task-slice';
+import { formatDate } from '../../utils/date-utils';
+import { DeleteModal } from '../modals/crud/delete-modal';
+import { EditingModal } from '../modals/crud/editing-modal';
+
 
 const Wrapper = styled.div`
   width: 324px;
