@@ -19,10 +19,8 @@ interface Props {
 export const Filter = ({ filter, setFilter }: Props) => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
-  const handlePanelOpen = () => {
+  const handlePanelOpen = () =>
     isPanelOpen === false ? setIsPanelOpen(true) : setIsPanelOpen(false);
-  };
-
   return (
     <Div>
       <FilterButton

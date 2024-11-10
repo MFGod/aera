@@ -23,7 +23,7 @@ const columnsSlice = createSlice({
     },
     addColumn(state, action: PayloadAction<IColumn>) {
       const existingColumn = state.columns.find(
-        (column) => column.id === action.payload.id
+        column => column.id === action.payload.id,
       );
 
       if (!existingColumn) {
@@ -35,7 +35,7 @@ const columnsSlice = createSlice({
 
     updateColumn(state, action: PayloadAction<IColumn>) {
       const { id, title } = action.payload;
-      const column = state.columns.find((column) => column.id === id);
+      const column = state.columns.find(column => column.id === id);
       if (column) {
         column.title = title;
       } else {
@@ -44,7 +44,7 @@ const columnsSlice = createSlice({
     },
     deleteColumn(state, action: PayloadAction<number>) {
       state.columns = state.columns.filter(
-        (column) => column.id !== action.payload
+        column => column.id !== action.payload,
       );
     },
   },

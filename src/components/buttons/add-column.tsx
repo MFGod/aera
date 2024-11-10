@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { StyledAddColumnIcon } from '../../../public/assets/icons/column/add';
-
 import { getUserData } from '../../hooks/getUserData';
 
 import { addColumnService } from '../../services/column-service';
