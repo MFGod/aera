@@ -36,7 +36,7 @@ export const AddTaskModal = ({ isOpen, onClose, columnId }: Props) => {
   const dispatch = useDispatch();
 
   const handleAddTask = async (
-    task: Omit<NewTask, 'userId' | 'createdDate' | 'column'>
+    task: Omit<NewTask, 'userId' | 'createdDate' | 'column'>,
   ) => {
     const { token, userId } = getUserData();
 
@@ -58,7 +58,7 @@ export const AddTaskModal = ({ isOpen, onClose, columnId }: Props) => {
 
     try {
       // Отправка задачи на сервер
-      let createdTask = await addTaskService(newTask, token);
+      const createdTask = await addTaskService(newTask, token);
       console.log(task);
       dispatch(addTask({ ...task, id: createdTask.createdTaskId }));
       onClose();
