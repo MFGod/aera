@@ -78,7 +78,7 @@ export const AddColumnButton = () => {
         <Input
           type="text"
           value={title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
           placeholder={placeholder}
           onFocus={() => setPlaceholder('')} // Убираем placeholder при фокусе
           onBlur={() => {

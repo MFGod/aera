@@ -15,7 +15,7 @@ export const selectFilteredTasks = createSelector(
     return tasks.filter(
       (task) =>
         task.title.toLocaleLowerCase().includes(searchQuery.toLowerCase()) ||
-        task.description.toLowerCase().includes(searchQuery.toLowerCase())
+        task.description.toLowerCase().includes(searchQuery.toLowerCase()),
     );
-  }
+  },
 );

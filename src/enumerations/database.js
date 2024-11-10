@@ -21,5 +21,3 @@ export let BoardTemplateColumnIds = {
     [BoardTemplateColumns[BoardTemplates.Kanban].Completed]: 2,
   },
 };
-
-

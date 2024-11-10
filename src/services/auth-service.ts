@@ -4,7 +4,7 @@ export const handleRegistration = async (
   username: string,
   email: string,
   password: string,
-  router: NextRouter
+  router: NextRouter,
 ) => {
   // Проверка входных данных
   if (!username || !email || !password) {
@@ -46,7 +46,7 @@ export const handleRegistration = async (
 export const handleLogin = async (
   emailLogin: string,
   password: string,
-  router: NextRouter
+  router: NextRouter,
 ) => {
   if (!emailLogin || !password) {
     throw new Error('Все поля должны быть заполнены');

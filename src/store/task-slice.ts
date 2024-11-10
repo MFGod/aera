@@ -48,13 +48,13 @@ const tasksSlice = createSlice({
 
     addTask(
       state,
-      action: PayloadAction<Omit<Task, 'userId' | 'createdDate'>>
+      action: PayloadAction<Omit<Task, 'userId' | 'createdDate'>>,
     ) {
       const userId = localStorage.getItem('userId');
 
       if (!userId) {
         console.warn(
-          'Предупреждение: userId не найден в localStorage. Задача не будет добавлена.'
+          'Предупреждение: userId не найден в localStorage. Задача не будет добавлена.',
         );
         return;
       }
@@ -76,13 +76,13 @@ const tasksSlice = createSlice({
     deleteTasksByColumnId(state, action: PayloadAction<number>) {
       const columnIdToDelete = action.payload;
       state.tasks = state.tasks.filter(
-        (task) => task.columnId !== columnIdToDelete
+        (task) => task.columnId !== columnIdToDelete,
       );
     },
 
     updateTask(state, action: PayloadAction<Task>) {
       state.tasks = state.tasks.map((task) =>
-        task.id === action.payload.id ? { ...task, ...action.payload } : task
+        task.id === action.payload.id ? { ...task, ...action.payload } : task,
       );
     },
 

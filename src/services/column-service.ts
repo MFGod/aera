@@ -1,16 +1,16 @@
-import { IColumn } from "../store/column-slice";
+import { IColumn } from '../store/column-slice';
 
 export const addColumnService = async (
   token: string,
   userId: string,
-  column: Omit<IColumn, "id">,
+  column: Omit<IColumn, 'id'>,
 ): Promise<IColumn> => {
-  const url = "https://localhost:7049/api/task-columns";
+  const url = 'https://localhost:7049/api/task-columns';
 
   const options: RequestInit = {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -21,14 +21,14 @@ export const addColumnService = async (
   };
 
   if (!column.title) {
-    throw new Error("Название колонки не может быть пустым");
+    throw new Error('Название колонки не может быть пустым');
   }
 
   const response = await fetch(url, options);
 
   if (response.ok) {
     const createdColumn = await response.json(); // Получение данных созданной колонки
-    console.log("Созданная колонка:", createdColumn);
+    console.log('Созданная колонка:', createdColumn);
     return createdColumn;
   } else {
     const errorText = await response.text();
@@ -40,12 +40,12 @@ export const deleteColumnService = async (
   token: string,
   taskColumnId: number,
 ): Promise<void> => {
-  const url = "https://localhost:7049/api/task-columns";
+  const url = 'https://localhost:7049/api/task-columns';
 
   const options: RequestInit = {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -54,7 +54,7 @@ export const deleteColumnService = async (
   };
 
   if (!taskColumnId) {
-    throw new Error("taskColumnId не установлен");
+    throw new Error('taskColumnId не установлен');
   }
 
   const response = await fetch(url, options);
@@ -74,9 +74,9 @@ export const getAllColumnsService = async (
   const url = `https://localhost:7049/api/task-columns/all?userId=${userId}`;
 
   const options: RequestInit = {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   };
@@ -140,9 +140,9 @@ export const updateColumnsService = async (
   const url = `https://localhost:7049/api/task-columns`;
 
   const options: RequestInit = {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -160,6 +160,6 @@ export const updateColumnsService = async (
   }
 
   const updatedColumn = await response.json();
-  console.log("Колонка успешно обновлена:", updatedColumn);
+  console.log('Колонка успешно обновлена:', updatedColumn);
   return updatedColumn;
 };

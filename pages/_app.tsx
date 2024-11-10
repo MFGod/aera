@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import store from '../src/store/store';
 import { GlobalStyles } from '../styles/global-styles';
 
-
 function CustomApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const modalRootExists = document.getElementById('modal-root');

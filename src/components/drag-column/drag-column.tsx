@@ -5,7 +5,6 @@ import Column from './column/column';
 import { useCanDrag } from '../../../pages/all';
 import { Task } from '../../store/task-slice';
 
-
 interface Properties {
   id: number;
   index: number;

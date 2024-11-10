@@ -8,7 +8,6 @@ import { selectFilteredTasks } from '../../../store/selectors';
 import { FilterType, filterTaskByFilter } from '../../../utils/task-utils';
 import { FilterButton } from '../../buttons/filter-button';
 
-
 const Wrapper = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   top: 0px;
@@ -72,7 +71,7 @@ export const FilterPanel = ({
       all: filterTaskByFilter(tasks, 'all').length,
       week: filterTaskByFilter(tasks, 'week').length,
     }),
-    [tasks, columns]
+    [tasks, columns],
   );
 
   return (

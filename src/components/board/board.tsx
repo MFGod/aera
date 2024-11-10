@@ -50,7 +50,7 @@ export const Board = () => {
   const dispatch = useDispatch();
 
   const tasks = useAppSelector(selectFilteredTasks);
-  const columns = useAppSelector(state => state.columns.columns);
+  const columns = useAppSelector((state) => state.columns.columns);
 
   const board = useBoardData();
 
@@ -136,9 +136,9 @@ export const Board = () => {
                   index={index}
                   id={id}
                   title={title}
-                  tasks={filteredTasks.filter(task => task.columnId === id)}
+                  tasks={filteredTasks.filter((task) => task.columnId === id)}
                   moveColumn={moveColumn}
-                  onEditTitle={newTitle =>
+                  onEditTitle={(newTitle) =>
                     handleChangeColumnTitle(id, newTitle)
                   }
                   onDelete={() => handleDeleteColumn(id, title)}

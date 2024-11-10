@@ -73,7 +73,7 @@ export const Modal: FC<ModalInterface> = ({ isOpen, onClose, children }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [onClose]);
-  
+
   if (!isOpen) return null;
 
   return (

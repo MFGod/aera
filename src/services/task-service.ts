@@ -13,7 +13,7 @@ interface CreateTaskResponse {
 
 export const addTaskService = async (
   task: Omit<Task, 'id'>,
-  token: string
+  token: string,
 ): Promise<CreateTaskResponse> => {
   if (!task.title) {
     throw new Error('Заголовок должен быть заполнен');
@@ -49,7 +49,7 @@ export const addTaskService = async (
 
 export const getTasksService = async (
   token: string,
-  userId: string
+  userId: string,
 ): Promise<Task[]> => {
   const response = await fetch(
     `https://localhost:7049/api/user-tasks/all?userId=${userId}`,
@@ -59,7 +59,7 @@ export const getTasksService = async (
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-    }
+    },
   );
 
   if (!response.ok) {
@@ -72,10 +72,7 @@ export const getTasksService = async (
   return tasks.userTasks;
 };
 
-export const deleteTaskService = async (
-  taskId: number,
-  token: string
-) => {
+export const deleteTaskService = async (taskId: number, token: string) => {
   const response = await fetch('https://localhost:7049/api/user-tasks/', {
     method: 'DELETE',
     headers: {
@@ -98,7 +95,7 @@ export const deleteTaskService = async (
 export const updatedTaskService = async (
   token: string,
   updatingTaskId: number,
-  task: Task
+  task: Task,
 ) => {
   const url = 'https://localhost:7049/api/user-tasks/';
   const response = await fetch(url, {

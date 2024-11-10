@@ -55,7 +55,7 @@ const Home = () => {
         <Logo size={LogoSizes.Medium} />
 
         <Div>
-          {[Anchors.Authorization, Anchors.Registration].map(anchor => {
+          {[Anchors.Authorization, Anchors.Registration].map((anchor) => {
             switch (anchor) {
               case Anchors.Authorization:
                 return (

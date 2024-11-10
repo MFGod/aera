@@ -1,12 +1,12 @@
-import { FC } from "react";
-import { useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
+import { FC } from 'react';
+import { useDrop } from 'react-dnd';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 
-import { useCanDrag } from "../../../../pages/all";
-import { StyledDeleteColumnIcon } from "../../../../public/assets/icons/column/delete";
-import { Task, moveTask } from "../../../store/task-slice";
-import { TaskList } from "../../task/task-list";
+import { useCanDrag } from '../../../../pages/all';
+import { StyledDeleteColumnIcon } from '../../../../public/assets/icons/column/delete';
+import { Task, moveTask } from '../../../store/task-slice';
+import { TaskList } from '../../task/task-list';
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,7 +55,7 @@ const Column: FC<ColumnProps> = ({
   const { setCanDrag } = useCanDrag();
 
   const [{}, taskDrop] = useDrop({
-    accept: "TASK",
+    accept: 'TASK',
     drop: (item: { id: number; column: string }) => {
       if (item.column !== id.toString()) {
         dispatch(
