@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { StyledSearchIcon } from '../../../../public/assets/icons/filter/search';
+import { StyledSearchIcon } from '../../../../public/assets/icons/search';
 import { setSearchQuery } from '../../../store/task-slice';
 
 const Wrapper = styled.div`

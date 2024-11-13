@@ -33,7 +33,7 @@ export const EditIcon: FC<Props> = (props) => (
   </svg>
 );
 
-export const StEditIcon = styled(EditIcon)`
+export const StyledEditIcon = styled(EditIcon)`
   width: 20px;
   height: 20px;
 

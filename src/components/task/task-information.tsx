@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import styled from 'styled-components';
 
-import { StyledOpenTaskIcon } from '../../../public/assets/icons/task/open';
 import { Task } from '../../store/task-slice';
 import { calculateDaysLeft, formatDate } from '../../utils/date-utils';
+import { StyledOpenTaskIcon } from '../../../public/assets/icons/open';
 
 const Wrapper = styled.div`
   display: flex;
@@ -76,7 +76,7 @@ export const TaskInformation = ({ task, onClick }: Props) => {
               ? formatDate(
                   globalThis.navigator.language,
                   { month: 'numeric', day: 'numeric' },
-                  new Date(task.createdAt)
+                  new Date(task.createdAt),
                 )
               : ''}
           </p>

@@ -5,7 +5,6 @@ import { TaskItem } from './task-item';
 import { Task } from '../../store/task-slice';
 import { AddTaskButton } from '../buttons/add-button';
 
-
 const Div = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,7 +19,6 @@ const Text = styled.p`
 
 interface TaskListInterface {
   tasks: Task[];
-  columnTitle: string;
   columnId: number;
 }
 

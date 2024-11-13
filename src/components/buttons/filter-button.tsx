@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { StyledFilterIcon } from '../../../public/assets/icons/filter/filter';
+import { StyledFilterIcon } from '../../../public/assets/icons/filter';
 
 const Button = styled.button<{ $isActive: boolean }>`
   font-size: 14px;

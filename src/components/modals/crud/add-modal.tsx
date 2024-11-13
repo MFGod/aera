@@ -8,7 +8,6 @@ import { addTaskService } from '../../../services/task-service';
 import { addTask, Task } from '../../../store/task-slice';
 import { getCurrentDate } from '../../../utils/date-utils';
 import { TaskForm } from '../../form/task';
-import { Title } from '../styles';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -51,9 +50,8 @@ export const AddTaskModal = ({ isOpen, onClose, columnId }: Props) => {
     };
 
     try {
-      // Отправка задачи на сервер
       const createdTask = await addTaskService(newTask, token);
-      console.log(task);
+      console.log('Добавленная задача:', createdTask);
       dispatch(addTask({ ...task, id: createdTask.createdTaskId }));
       onClose();
     } catch (error) {
@@ -64,7 +62,7 @@ export const AddTaskModal = ({ isOpen, onClose, columnId }: Props) => {
   const modalContent = (
     <Modal isOpen={isOpen} onClose={onClose}>
       <Wrapper>
-        <Title>Новый список</Title>
+        <p>Новый список</p>
 
         <TaskForm onAdd={handleAddTask} columnId={columnId} />
       </Wrapper>

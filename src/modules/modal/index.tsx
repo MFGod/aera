@@ -1,19 +1,19 @@
 import React, { FC, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import { CloseButton } from '../../../public/ui/components/modal/close-button';
+import { StyledCloseModalIcon } from '../../../public/assets/icons/close-modal';
 
 const ModalOverlay = styled.div`
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: end;
+  align-items: end;
 
   background: rgba(0, 0, 0, 0.5);
 
@@ -23,21 +23,15 @@ const ModalOverlay = styled.div`
 const ModalContent = styled.div`
   position: relative;
   width: 50%;
-  height: 60%;
+  height: 80%;
 
-  padding: 20px;
+  padding: 40px;
 
-  border-radius: 8px;
+  border-top-left-radius: 15px;
+  border-top: 0.5px solid #1d1e24;
+  border-left: 0.5px solid #1d1e24;
 
-  background: #555555;
-`;
-
-const StyledCloseButton = styled(CloseButton)`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-
-  cursor: pointer;
+  background: #ffffff;
 `;
 
 interface ModalInterface {
@@ -79,7 +73,7 @@ export const Modal: FC<ModalInterface> = ({ isOpen, onClose, children }) => {
   return (
     <ModalOverlay>
       <ModalContent ref={modalRef}>
-        <StyledCloseButton onClick={onClose} />
+        <StyledCloseModalIcon onClick={onClose} />
         {children}
       </ModalContent>
     </ModalOverlay>

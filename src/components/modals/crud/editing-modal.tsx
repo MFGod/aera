@@ -6,7 +6,6 @@ import { Modal } from '../../../modules/modal';
 import { updatedTaskService } from '../../../services/task-service';
 import { Task, updateTask } from '../../../store/task-slice';
 import { TaskForm } from '../../form/task';
-import { Title } from '../styles';
 
 interface Props {
   isOpen: boolean;
@@ -34,6 +33,7 @@ export const EditingModal = ({ isOpen, onClose, task }: Props) => {
       }
 
       const updatedTask = await updatedTaskService(token, task.id, task);
+      console.log(updatedTask);
       dispatch(updateTask(updatedTask));
       onClose();
     } catch (error) {
@@ -43,7 +43,6 @@ export const EditingModal = ({ isOpen, onClose, task }: Props) => {
 
   const modalContent = (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Title>Редактирование</Title>
       <TaskForm onAdd={handleUpdateTask} task={task} columnId={task.columnId} />
     </Modal>
   );

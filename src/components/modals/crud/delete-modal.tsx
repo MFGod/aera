@@ -7,7 +7,7 @@ import { getUserData } from '../../../hooks/getUserData';
 import { Modal } from '../../../modules/modal';
 import { deleteTaskService } from '../../../services/task-service';
 import { deleteTask, Task } from '../../../store/task-slice';
-import { Text, Title } from '../styles';
+import { Text } from '../styles';
 
 const Block = styled.div`
   display: flex;
@@ -77,7 +77,7 @@ export const DeleteModal: FC<DeleteModalInterface> = ({
 
   const modalContent = (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <Title>Удалить задачу?</Title>
+      <p>Удалить задачу?</p>
       <Text>Вы уверены, что хотите удалить задачу "{task.title}"?</Text>
       <Block>
         <StyledButton onClick={confirmDeleteTask}>Удалить</StyledButton>

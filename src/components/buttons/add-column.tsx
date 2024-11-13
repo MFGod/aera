@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { getUserData } from '../../hooks/getUserData';
 import { addColumnService } from '../../services/column-service';
 import { addColumn, IColumn } from '../../store/column-slice';
+import { StyledAddColumnIcon } from '../../../public/assets/icons/add-column';
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,18 +29,6 @@ const Input = styled.input`
   background-color: transparent;
 
   border: none;
-`;
-
-const Button = styled.button`
-  text-align: center;
-
-  font-size: 16px;
-  padding: 14px 16px;
-
-  background-color: #ffffff;
-
-  border-radius: 15px;
-  border: 0.5px solid #1d1e24;
 `;
 
 export const AddColumnButton = () => {
@@ -80,17 +69,13 @@ export const AddColumnButton = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder={placeholder}
-          onFocus={() => setPlaceholder('')} // Убираем placeholder при фокусе
+          onFocus={() => setPlaceholder('')}
           onBlur={() => {
-            setPlaceholder('Введите название колонки'); // Возвращаем placeholder только если поле пустое
+            setPlaceholder('Введите название колонки');
           }}
         />
-        {/*<StyledAddColumnIcon onClick={handleAddColumn} />*/}
+        <StyledAddColumnIcon onClick={handleAddColumn} />
       </Div>
-
-      <Button onClick={handleAddColumn}>
-        нажмите чтобы создать новую колонку
-      </Button>
     </Wrapper>
   );
 };

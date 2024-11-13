@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { useCanDrag } from '../../../../pages/all';
-import { StyledDeleteColumnIcon } from '../../../../public/assets/icons/column/delete';
+import { StyledDeleteIcon } from '../../../../public/assets/icons/delete';
 import { Task, moveTask } from '../../../store/task-slice';
 import { TaskList } from '../../task/task-list';
 
@@ -69,6 +69,15 @@ const Column: FC<ColumnProps> = ({
     }),
   });
 
+  const dropRef = useRef<HTMLDivElement | null>(null);
+
+  // Apply taskDrop ref to dropRef using useEffect
+  useEffect(() => {
+    if (dropRef.current) {
+      taskDrop(dropRef.current);
+    }
+  }, [taskDrop]);
+
   return (
     <Wrapper>
       <Div>
@@ -84,14 +93,12 @@ const Column: FC<ColumnProps> = ({
         <Div>
           <p>{tasks.length}</p>
 
-          <StyledDeleteColumnIcon onClick={onDelete}>
-            Удалить
-          </StyledDeleteColumnIcon>
+          <StyledDeleteIcon onClick={onDelete} />
         </Div>
       </Div>
 
-      <div ref={taskDrop}>
-        <TaskList tasks={tasks} columnTitle={title} columnId={id} />
+      <div ref={dropRef}>
+        <TaskList tasks={tasks} columnId={id} />
       </div>
     </Wrapper>
   );

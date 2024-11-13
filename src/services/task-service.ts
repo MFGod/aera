@@ -39,11 +39,11 @@ export const addTaskService = async (
 
   if (response.ok) {
     const createdTask = await response.json(); // Получение данных созданной колонки
-    console.log('Созданная колонка:', createdTask);
+    console.log('Созданная задача:', createdTask);
     return createdTask;
   } else {
     const errorText = await response.text();
-    throw new Error(`Ошибка при добавлении колонки: ${errorText}`);
+    throw new Error(`Ошибка при добавлении задачи: ${errorText}`);
   }
 };
 
@@ -114,13 +114,17 @@ export const updatedTaskService = async (
       completedAt: task.completedAt,
     }),
   });
+  console.log('Айди в запросе', updatingTaskId);
 
   if (response.ok) {
     const updatedTask = await response.json();
     console.log('Обновленная задача:', updatedTask);
-    return updatedTask;
+    return {
+      ...updatedTask,
+      id: updatedTask.updatingTaskId, // Присваиваем id значение from updatingTaskId
+    };
   } else {
     const errorText = await response.text();
-    throw new Error(`Ошибка при добавлении колонки: ${errorText}`);
+    throw new Error(`Ошибка при обновлении: ${errorText}`);
   }
 };

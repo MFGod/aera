@@ -1,16 +1,19 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import styled from 'styled-components';
 
-import { TaskInformation } from './task-information';
 import { useCanDrag } from '../../../pages/all';
-import { StDeleteIcon } from '../../../public/assets/icons/task/delete';
-import { StEditIcon } from '../../../public/assets/icons/task/edit';
+
+import { StyledEditIcon } from '../../../public/assets/icons/edit';
 import { Task } from '../../store/task-slice';
 import { formatDate } from '../../utils/date-utils';
 import { DeleteModal } from '../modals/crud/delete-modal';
 import { EditingModal } from '../modals/crud/editing-modal';
-
+import { StyledDeleteIcon } from '../../../public/assets/icons/delete';
+import { useAppSelector } from '@/store/hooks';
+import { useDispatch } from 'react-redux';
+import { TaskInformation } from './task-information';
+import { useSelector } from 'react-redux';
 
 const Wrapper = styled.div`
   width: 324px;
@@ -57,6 +60,7 @@ interface TaskItemProps {
 export const TaskItem: FC<TaskItemProps> = ({ task }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
   const { canDrag } = useCanDrag();
 
   const [{}, drag] = useDrag({
@@ -68,9 +72,18 @@ export const TaskItem: FC<TaskItemProps> = ({ task }) => {
     }),
   });
 
+  const dragRef = useRef<HTMLDivElement | null>(null);
+
+  // Apply taskDrop ref to dropRef using useEffect
+  useEffect(() => {
+    if (dragRef.current) {
+      drag(dragRef.current);
+    }
+  }, [drag]);
+
   return (
     <>
-      <Wrapper ref={drag}>
+      <Wrapper ref={dragRef}>
         <TaskInformation task={task} onClick={() => setIsEditOpen(true)} />
 
         <Div>
@@ -79,14 +92,14 @@ export const TaskItem: FC<TaskItemProps> = ({ task }) => {
               ? formatDate(
                   globalThis.navigator.language,
                   { month: 'short', day: 'numeric' },
-                  new Date(task.completedAt)
+                  new Date(task.completedAt),
                 )
               : ''}
           </StyledDate>
 
           <IconsDiv>
-            <StEditIcon onClick={() => setIsEditOpen(true)} />
-            <StDeleteIcon onClick={() => setIsDeleteOpen(true)} />
+            <StyledEditIcon onClick={() => setIsEditOpen(true)} />
+            <StyledDeleteIcon onClick={() => setIsDeleteOpen(true)} />
           </IconsDiv>
         </Div>
       </Wrapper>

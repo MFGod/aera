@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface Props extends ComponentProps<'svg'> {}
 
-const DeleteColumnIcon: FC<Props> = (props) => (
+const CloseModalIcon: FC<Props> = (props) => (
   <svg
     width="15"
     height="15"
@@ -43,9 +43,13 @@ const DeleteColumnIcon: FC<Props> = (props) => (
   </svg>
 );
 
-export const StyledDeleteColumnIcon = styled(DeleteColumnIcon)`
-  width: 20px;
-  height: 20px;
+export const StyledCloseModalIcon = styled(CloseModalIcon)`
+  position: absolute;
+  top: 44px;
+  right: 40px;
+
+  width: 28px;
+  height: 28px;
 
   cursor: pointer;
 `;
