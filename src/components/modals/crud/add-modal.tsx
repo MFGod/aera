@@ -62,8 +62,6 @@ export const AddTaskModal = ({ isOpen, onClose, columnId }: Props) => {
   const modalContent = (
     <Modal isOpen={isOpen} onClose={onClose}>
       <Wrapper>
-        <p>Новый список</p>
-
         <TaskForm onAdd={handleAddTask} columnId={columnId} />
       </Wrapper>
     </Modal>

@@ -1,13 +1,8 @@
-import { FC, FormEvent, useEffect, useMemo, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { Task, updateTask } from '../../../store/task-slice';
-import {
-  calculateDaysLeft,
-  formatDate,
-  getCurrentDate,
-} from '../../../utils/date-utils';
-import { useDispatch } from 'react-redux';
+import { Task } from '../../../store/task-slice';
+import { formatDate, getCurrentDate } from '../../../utils/date-utils';
 import { CustomDateInput } from './custom-calendar/castom-calendar';
 
 const Form = styled.form`
@@ -51,7 +46,7 @@ const Input = styled.input`
 
 const TextArea = styled.textarea`
   font-size: 16px;
-  padding: 14px 20px;
+  padding: 10px 20px;
   color: #1d1e24;
   background-color: #f4f4f4;
 
@@ -60,11 +55,10 @@ const TextArea = styled.textarea`
 
   resize: none; /* Запрещаем ручное изменение размера */
 
-  overflow: hidden; /* Скрываем полосу прокрутки */
-  width: 100%; /* Растягиваем по ширине контейнера */
+  width: 100%;
 
-  min-height: 40px; /* Минимальная высота */
-  line-height: 1.5;
+  min-height: 120px; /* Минимальная высота */
+  scroll-behavior: auto;
 
   &:focus {
     outline: none;
@@ -166,15 +160,20 @@ export const TaskForm: FC<TaskFormProps> = ({ onAdd, task, columnId }) => {
       <Wrapper>
         <Div>
           <p>Срок выполнения до:</p>
-          <p>
-            {completedAt
-              ? formatDate(
-                  globalThis.navigator.language,
-                  { month: 'long', day: 'numeric' },
-                  new Date(completedAt),
-                )
-              : ''}
-          </p>
+          {completedAt ? (
+            <p>
+              {completedAt
+                ? formatDate(
+                    globalThis.navigator.language,
+                    { month: 'long', day: 'numeric' },
+                    new Date(completedAt),
+                  )
+                : ''}
+            </p>
+          ) : (
+            <p>Не указана</p>
+          )}
+
           <Span />
           <CustomDateInput
             value={completedAt}

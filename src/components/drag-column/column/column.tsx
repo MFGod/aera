@@ -12,6 +12,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  width: 323px;
 `;
 
 const Input = styled.input`
@@ -22,6 +24,10 @@ const Input = styled.input`
   background-color: transparent;
 
   border: none;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Div = styled.div`

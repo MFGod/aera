@@ -9,8 +9,9 @@ import { StyledAddColumnIcon } from '../../../public/assets/icons/add-column';
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 `;
 
 const Div = styled.div`
@@ -21,14 +22,17 @@ const Div = styled.div`
 `;
 
 const Input = styled.input`
+  width: 293px;
   font-size: 16px;
-  width: 300px;
-
   color: #1d1e24;
 
   background-color: transparent;
 
   border: none;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const AddColumnButton = () => {
