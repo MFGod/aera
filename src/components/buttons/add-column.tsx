@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { getUserData } from '../../hooks/getUserData';
 import { addColumnService } from '../../services/column-service';
 import { addColumn, IColumn } from '../../store/column-slice';
-import { StyledAddColumnIcon } from '../../../public/assets/icons/add-column';
+import { StyledAddIcon } from '../../../public/assets/icons/add-column';
 
 const Wrapper = styled.div`
   display: flex;
@@ -78,7 +78,7 @@ export const AddColumnButton = () => {
             setPlaceholder('Введите название колонки');
           }}
         />
-        <StyledAddColumnIcon onClick={handleAddColumn} />
+        <StyledAddIcon onClick={handleAddColumn} />
       </Div>
     </Wrapper>
   );

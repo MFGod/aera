@@ -30,7 +30,7 @@ const Input = styled.input`
   }
 `;
 
-const StyledButton = styled.button`
+const Button = styled.button`
   align-self: center;
 
   font-size: 20px;
@@ -83,7 +83,7 @@ export const LoginForm = () => {
       />
       {error && <ErrorMessage>{error}</ErrorMessage>}
 
-      <StyledButton type="submit">вход</StyledButton>
+      <Button type="submit">вход</Button>
     </StyledForm>
   );
 };

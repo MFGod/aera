@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface Props extends ComponentProps<'svg'> {}
 
-const AddColumnIcon: FC<Props> = (props) => (
+const AddIcon: FC<Props> = (props) => (
   <svg
     width="11"
     height="10"
@@ -31,9 +31,10 @@ const AddColumnIcon: FC<Props> = (props) => (
   </svg>
 );
 
-export const StyledAddColumnIcon = styled(AddColumnIcon)`
+export const StyledAddIcon = styled(AddIcon)`
   width: 20px;
   height: 20px;
+  padding-bottom: 2px;
 
   cursor: pointer;
 `;

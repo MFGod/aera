@@ -17,6 +17,7 @@ const Div = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const DateDiv = styled.div`

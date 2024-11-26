@@ -7,16 +7,41 @@ import { getUserData } from '../../../hooks/getUserData';
 import { Modal } from '../../../modules/modal';
 import { deleteTaskService } from '../../../services/task-service';
 import { deleteTask, Task } from '../../../store/task-slice';
-import { Text } from '../styles';
 
-const Block = styled.div`
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  gap: 40px;
+
+  height: 100%;
+`;
+
+export const Title = styled.p`
+  font-size: 26px;
+
+  text-align: center;
+
+  color: #1d1e24;
+`;
+
+export const Text = styled.p`
+  font-size: 26px;
+
+  text-align: center;
+
+  color: #1d1e24;
+`;
+
+const ButtonsDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 40px;
 `;
 
-const StyledButton = styled.button`
+const Button = styled.button`
   align-self: center;
 
   font-size: 20px;
@@ -26,7 +51,7 @@ const StyledButton = styled.button`
   background-color: transparent;
 
   border: 1px solid #1d1e24;
-  border-radius: 50px;
+  border-radius: 15px;
 
   cursor: pointer;
 
@@ -77,12 +102,15 @@ export const DeleteModal: FC<DeleteModalInterface> = ({
 
   const modalContent = (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <p>Удалить задачу?</p>
-      <Text>Вы уверены, что хотите удалить задачу "{task.title}"?</Text>
-      <Block>
-        <StyledButton onClick={confirmDeleteTask}>Удалить</StyledButton>
-        <StyledButton onClick={onClose}>Отмена</StyledButton>
-      </Block>
+      <Title>Удаление задачи</Title>
+      <Div>
+        <Text>Желаете ли вы удалить задачу с названием:</Text>
+        <Text>"{task.title}"</Text>
+        <ButtonsDiv>
+          <Button onClick={confirmDeleteTask}>Удалить</Button>
+          <Button onClick={onClose}>Отмена</Button>
+        </ButtonsDiv>
+      </Div>
     </Modal>
   );
 

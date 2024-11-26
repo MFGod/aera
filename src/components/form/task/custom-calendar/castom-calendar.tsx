@@ -39,11 +39,10 @@ export const CustomDateInput = ({ value, onChange }: Props) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper onClick={handleIconClick}>
       <DateInput ref={dateInputRef} value={value} onChange={onChange} />
-      <CalendarIconWrapper onClick={handleIconClick}>
-        <StyledCalendarIcon />
-      </CalendarIconWrapper>
+
+      <StyledCalendarIcon />
     </Wrapper>
   );
 };

@@ -65,6 +65,7 @@ const CalendarIcon: FC<Props> = (props) => (
 export const StyledCalendarIcon = styled(CalendarIcon)`
   width: 20px;
   height: 20px;
+  padding-bottom: 2px;
 
   cursor: pointer;
 `;

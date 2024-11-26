@@ -21,6 +21,10 @@ const FormItem = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  label {
+    font-size: 20px;
+  }
 `;
 
 const Input = styled.input`
@@ -45,7 +49,7 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
-  font-size: 16px;
+  font-size: 20px;
   padding: 10px 20px;
   color: #1d1e24;
   background-color: #f4f4f4;
@@ -71,16 +75,16 @@ const TextArea = styled.textarea`
 `;
 
 const StyledButton = styled.button`
-  align-self: center;
+  align-self: start;
 
-  font-size: 30px;
+  font-size: 20px;
 
   padding: 16px 56px;
 
   background-color: transparent;
 
   border: 1px solid #1d1e24;
-  border-radius: 50px;
+  border-radius: 15px;
 
   cursor: pointer;
 

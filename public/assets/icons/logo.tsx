@@ -1,5 +1,4 @@
 import { ComponentProps, FC } from 'react';
-import styled from 'styled-components';
 
 interface ILogoProps extends ComponentProps<'svg'> {}
 
