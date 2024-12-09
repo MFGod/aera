@@ -55,8 +55,6 @@ export const handleLogin = async (
 
   const userData = { emailLogin, password };
 
-  console.log(JSON.stringify(userData));
-
   try {
     const response = await fetch('https://localhost:7049/api/auth/login', {
       method: 'POST',
@@ -73,7 +71,7 @@ export const handleLogin = async (
     localStorage.setItem('userId', userId);
     localStorage.setItem('token', accessTokenString);
     localStorage.setItem('username', username);
-    console.log('username: ', username);
+
     //Принять useImage
 
     router.push('/all');

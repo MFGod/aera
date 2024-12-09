@@ -50,14 +50,10 @@ export const Board = () => {
   const dispatch = useDispatch();
   const { userData } = useUserData();
 
-  console.log("userData",userData)  
-
   const tasks = useAppSelector(selectFilteredTasks);
   const columns = useAppSelector((state) => state.columns.columns);
 
   const board = useBoardData();
-
-  console.log(columns);
 
   const [filter, setFilter] = useState<FilterType>('all');
 
@@ -85,9 +81,6 @@ export const Board = () => {
   };
 
   const handleDeleteColumn = async (id: number, title: string) => {
-    console.log('Удаление колонки с id:', id, 'и заголовком:', title); // Логирование id
-
-
     const taskColumnId = id;
 
     if (!userData?.token || !taskColumnId) {

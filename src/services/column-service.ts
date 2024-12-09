@@ -160,6 +160,6 @@ export const updateColumnsService = async (
   }
 
   const updatedColumn = await response.json();
-  console.log('Колонка успешно обновлена:', updatedColumn);
+  
   return updatedColumn;
 };

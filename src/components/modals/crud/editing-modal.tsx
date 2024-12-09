@@ -33,7 +33,6 @@ export const EditingModal = ({ isOpen, onClose, task }: Props) => {
       }
 
       const updatedTask = await updatedTaskService(userData?.token, task.id, task);
-      console.log(updatedTask);
       dispatch(updateTask(updatedTask));
       onClose();
     } catch (error) {
