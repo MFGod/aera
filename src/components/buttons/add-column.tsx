@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { getUserData } from '../../hooks/getUserData';
+import { useUserData } from '../../hooks/getUserData';
 import { addColumnService } from '../../services/column-service';
 import { addColumn, IColumn } from '../../store/column-slice';
 import { StyledAddIcon } from '../../../public/assets/icons/add-column';
@@ -37,6 +37,8 @@ const Input = styled.input`
 
 export const AddColumnButton = () => {
   const dispatch = useDispatch();
+  const { userData } = useUserData();
+
   const [title, setTitle] = useState('');
   const [placeholder, setPlaceholder] = useState('Введите название колонки');
 
@@ -46,9 +48,7 @@ export const AddColumnButton = () => {
       return;
     }
 
-    const { token, userId } = getUserData();
-
-    if (!token || !userId) {
+    if (!userData?.token || !userData?.userId) {
       console.error('Необходим токен и userId для добавления колонки.');
       return;
     }
@@ -58,7 +58,7 @@ export const AddColumnButton = () => {
     };
 
     try {
-      const createdColumn = await addColumnService(token, userId, newColumn);
+      const createdColumn = await addColumnService(userData?.token, userData?.userId, newColumn);
       dispatch(addColumn({ id: createdColumn.id, title: newColumn.title }));
       setTitle('');
     } catch (error) {

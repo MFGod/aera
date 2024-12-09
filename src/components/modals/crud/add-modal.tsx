@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { getUserData } from '../../../hooks/getUserData';
+import { useUserData } from '../../../hooks/getUserData';
 import { Modal } from '../../../modules/modal';
 import { addTaskService } from '../../../services/task-service';
 import { addTask, Task } from '../../../store/task-slice';
@@ -27,20 +27,20 @@ interface Props {
 
 export const AddTaskModal = ({ isOpen, onClose, columnId }: Props) => {
   const dispatch = useDispatch();
+  const { userData } =  useUserData();
 
   const handleAddTask = async (
     task: Omit<NewTask, 'userId' | 'createdDate' | 'column'>,
   ) => {
-    const { token, userId } = getUserData();
 
-    if (!token || !userId) {
+    if (!userData?.token || !userData?.userId) {
       console.error('Необходим токен и userId для добавления задачи.');
       return;
     }
 
     const newTask: NewTask = {
       ...task,
-      userId,
+      userId: userData?.userId,
       columnId: columnId,
       createdAt: getCurrentDate(),
       completedAt: task.completedAt || '',
@@ -50,7 +50,7 @@ export const AddTaskModal = ({ isOpen, onClose, columnId }: Props) => {
     };
 
     try {
-      const createdTask = await addTaskService(newTask, token);
+      const createdTask = await addTaskService(newTask, userData?.token);
       console.log('Добавленная задача:', createdTask);
       dispatch(addTask({ ...task, id: createdTask.createdTaskId }));
       onClose();

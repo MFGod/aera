@@ -1,4 +1,4 @@
-import { getUserData } from '../hooks/getUserData';
+import { useUserData } from '../hooks/getUserData';
 import { Task } from '../store/task-slice';
 
 interface CreateTaskResponse {
@@ -18,7 +18,7 @@ export const addTaskService = async (
   if (!task.title) {
     throw new Error('Заголовок должен быть заполнен');
   }
-  const { userId } = getUserData();
+  const { userData } = useUserData();
 
   const response = await fetch('https://localhost:7049/api/user-tasks', {
     method: 'POST',
@@ -27,7 +27,7 @@ export const addTaskService = async (
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      userId: userId,
+      userId: userData?.userId,
       columnId: task.columnId,
       title: task.title,
       description: task.description,

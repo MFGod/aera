@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { StyledBurgerIcon } from '../../../public/assets/icons/burger';
 import { StyledPhotoIcon } from '../../../public/assets/icons/photo';
-import { NextRouter, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
+
+import { useUserData } from '@/hooks/getUserData';
 
 const Div = styled.div`
   padding: 22px 36px;
@@ -28,13 +30,16 @@ const Button = styled.button`
 
 export const Header = () => {
   const router = useRouter();
+  const { userData } = useUserData();
+
+
   return (
     <Div>
       <StyledBurgerIcon />
-
+      <button onClick={() => router.push('/all')}>Main</button>
       <Button onClick={() => router.push('/profile')}>
         <StyledPhotoIcon />
-        <p>user name</p>
+        <p>{userData?.username}</p>
       </Button>
     </Div>
   );

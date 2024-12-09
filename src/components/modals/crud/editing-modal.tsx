@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 
-import { getUserData } from '../../../hooks/getUserData';
+import { useUserData } from '../../../hooks/getUserData';
 import { Modal } from '../../../modules/modal';
 import { updatedTaskService } from '../../../services/task-service';
 import { Task, updateTask } from '../../../store/task-slice';
@@ -15,24 +15,24 @@ interface Props {
 
 export const EditingModal = ({ isOpen, onClose, task }: Props) => {
   const dispatch = useDispatch();
+  const { userData } = useUserData();
 
   const handleUpdateTask = async (task: Task) => {
     try {
-      const { token, userId } = getUserData();
 
-      if (!token) {
+      if (!userData?.token) {
         console.error('Token отсутствует.');
         throw new Error('Требуется аутентификация. Попробуйте еще раз.');
       }
 
-      if (!userId) {
+      if (!userData?.userId) {
         console.error('User ID отсутствует.');
         throw new Error(
           'Требуется идентификатор пользователя. Пожалуйста, убедитесь, что вы вошли в систему.',
         );
       }
 
-      const updatedTask = await updatedTaskService(token, task.id, task);
+      const updatedTask = await updatedTaskService(userData?.token, task.id, task);
       console.log(updatedTask);
       dispatch(updateTask(updatedTask));
       onClose();

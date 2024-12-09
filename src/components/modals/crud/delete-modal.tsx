@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { getUserData } from '../../../hooks/getUserData';
+import { useUserData } from '../../../hooks/getUserData';
 import { Modal } from '../../../modules/modal';
 import { deleteTaskService } from '../../../services/task-service';
 import { deleteTask, Task } from '../../../store/task-slice';
@@ -73,6 +73,7 @@ export const DeleteModal: FC<DeleteModalInterface> = ({
 }) => {
   const [taskId, setTaskId] = useState<number | null>(null);
   const dispatch = useDispatch();
+  const { userData } = useUserData();
 
   useEffect(() => {
     if (isOpen) {
@@ -82,16 +83,15 @@ export const DeleteModal: FC<DeleteModalInterface> = ({
 
   const confirmDeleteTask = async () => {
     if (taskId) {
-      const { token, userId } = getUserData();
 
-      if (!token || !userId) {
+      if (!userData?.token || !userData?.userId) {
         console.error('Необходим токен и userId для добавления задачи.');
         return;
       }
 
       try {
         // Отправка задачи на сервер
-        await deleteTaskService(taskId, token);
+        await deleteTaskService(taskId, userData?.token);
         dispatch(deleteTask(taskId));
         onClose();
       } catch (error) {

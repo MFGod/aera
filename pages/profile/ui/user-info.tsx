@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { StyledAddIcon } from '../../../public/assets/icons/add-column';
 import { PhotoIcon } from '../../../public/assets/icons/photo';
+import { useUserData } from '@/hooks/getUserData';
+import { useEffect, useState } from 'react';
 
 const Wrapper = styled.div`
   display: flex;
@@ -38,18 +40,43 @@ const Button = styled.button`
   }
 `;
 
-export const UserInfo = ({}) => (
-  <Wrapper>
-    <PhotoIcon />
+const Input = styled.input`
+  width: 293px;
+  font-size: 16px;
+  color: #1d1e24;
 
-    <Div>
-      <p>Иван иванов</p>
-      <Button>
-        Специальность <StyledAddIcon />
-      </Button>
-      <Button>
-        описание <StyledAddIcon />
-      </Button>
-    </Div>
-  </Wrapper>
-);
+  background-color: transparent;
+
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const UserInfo = () => {
+  const { userData, loading } = useUserData();
+  console.log(userData);
+
+  return (
+    <Wrapper>
+      <PhotoIcon />
+
+      <Div>
+        <Input
+          type="text"
+          value={userData?.username}
+          onChange={() => { }}
+        //placeholder={placeholder}
+        //onFocus={() => setPlaceholder('')}
+        />
+        <Button>
+          Специальность <StyledAddIcon />
+        </Button>
+        <Button>
+          описание <StyledAddIcon />
+        </Button>
+      </Div>
+    </Wrapper>
+  );
+};

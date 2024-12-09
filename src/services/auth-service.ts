@@ -31,13 +31,14 @@ export const handleRegistration = async (
       throw new Error(`Ошибка при регистрации: ${errorText}`);
     }
 
-    const { userId, accessTokenString } = await response.json(); // Сервер возвращает userId и token
+    const { userId, accessTokenString, username } = await response.json(); // Сервер возвращает userId и token
     localStorage.setItem('userId', userId);
     localStorage.setItem('token', accessTokenString);
+    localStorage.setItem('username', username);
 
     router.push('/all');
 
-    return { userId, accessTokenString };
+    return { userId, accessTokenString, username };
   } catch (error) {
     throw new Error('Ошибка при регистрации. Попробуйте снова!');
   }
@@ -68,9 +69,12 @@ export const handleLogin = async (
       throw new Error('Неверные учетные данные');
     }
 
-    const { userId, accessTokenString } = await response.json();
+    const { userId, accessTokenString, username } = await response.json();
     localStorage.setItem('userId', userId);
     localStorage.setItem('token', accessTokenString);
+    localStorage.setItem('username', username);
+    console.log('username: ', username);
+    //Принять useImage
 
     router.push('/all');
 

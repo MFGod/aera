@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { getUserData } from '../../hooks/getUserData';
+import { useUserData } from '../../hooks/getUserData';
 import { useBoardData } from '../../hooks/useBoardData';
 import {
   deleteColumnService,
@@ -48,6 +48,9 @@ const Ul = styled.ul`
 
 export const Board = () => {
   const dispatch = useDispatch();
+  const { userData } = useUserData();
+
+  console.log("userData",userData)  
 
   const tasks = useAppSelector(selectFilteredTasks);
   const columns = useAppSelector((state) => state.columns.columns);
@@ -59,9 +62,9 @@ export const Board = () => {
   const [filter, setFilter] = useState<FilterType>('all');
 
   const handleChangeColumnTitle = async (id: number, newTitle: string) => {
-    const { token, userId } = getUserData();
 
-    if (!token || !userId) {
+
+    if (!userData?.token || !userData?.userId) {
       console.error('Необходим токен и userId для обновления колонки.');
       return;
     }
@@ -69,8 +72,8 @@ export const Board = () => {
     const taskColumnId = id;
     try {
       const updatedColumn = await updateColumnsService(
-        token,
-        userId,
+        userData?.token,
+        userData?.userId,
         taskColumnId,
         newTitle,
       );
@@ -84,11 +87,10 @@ export const Board = () => {
   const handleDeleteColumn = async (id: number, title: string) => {
     console.log('Удаление колонки с id:', id, 'и заголовком:', title); // Логирование id
 
-    const { token } = getUserData();
 
     const taskColumnId = id;
 
-    if (!token || !taskColumnId) {
+    if (!userData?.token || !taskColumnId) {
       console.error(
         'Необходим токен и корректный taskColumnId для удаления колонки.',
       );
@@ -96,7 +98,7 @@ export const Board = () => {
     }
 
     try {
-      await deleteColumnService(token, taskColumnId);
+      await deleteColumnService(userData?.token, taskColumnId);
 
       dispatch(deleteColumn(id));
     } catch (error) {
