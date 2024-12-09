@@ -13,19 +13,13 @@ export const useUserData = () => {
       const userId = localStorage.getItem('userId');
       const username = localStorage.getItem('username');
 
-      if (!token) {
-        setLoading(false);
-        return;
-      }
-
-      if (token && userId && username) {
-        setUserData({ token, userId, username });
-        setLoading(false);
-        return;
-      }
+      if (!token || !userId || !username) {
+         setLoading(false);
+         return;
+       }
 
       try {
-        const user = await getUserService(token);
+        const user = await getUserService(token, userId);
         console.log('Полученные данные пользователя: ', user);
         setUserData(user);
       } catch (error) {

@@ -1,12 +1,15 @@
-export const getUserService = async (token: string) => {
+export const getUserService = async (token: string, userId: string) => {
   try {
-    const response = await fetch(`https://localhost:7049/api/users`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+    const response = await fetch(
+      `https://localhost:7049/api/users?userId=${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
