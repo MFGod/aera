@@ -37,5 +37,10 @@ export const useUserData = () => {
 
     fetchUserData();
   }, []);
-  return { userData, loading };
+
+  const userDataValues = userData
+    ? { ...userData }
+    : { token: '', userId: '', username: '' };
+
+  return { userData: userDataValues, loading };
 };

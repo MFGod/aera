@@ -55,6 +55,7 @@ const Input = styled.input`
 
 export const UserInfo = () => {
   const { userData } = useUserData();
+  const { username } = userData;
 
   return (
     <Wrapper>
@@ -63,7 +64,7 @@ export const UserInfo = () => {
       <Div>
         <Input
           type="text"
-          value={userData?.username}
+          value={username}
           onChange={() => {}}
           //placeholder={placeholder}
           //onFocus={() => setPlaceholder('')}

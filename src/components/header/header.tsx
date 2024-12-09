@@ -30,8 +30,9 @@ const Button = styled.button`
 
 export const Header = () => {
   const router = useRouter();
-  const { userData } = useUserData();
 
+  const { userData } = useUserData();
+  const { username } = userData;
 
   return (
     <Div>
@@ -39,7 +40,7 @@ export const Header = () => {
       <button onClick={() => router.push('/all')}>Main</button>
       <Button onClick={() => router.push('/profile')}>
         <StyledPhotoIcon />
-        <p>{userData?.username}</p>
+        <p>{username}</p>
       </Button>
     </Div>
   );

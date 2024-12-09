@@ -27,20 +27,21 @@ interface Props {
 
 export const AddTaskModal = ({ isOpen, onClose, columnId }: Props) => {
   const dispatch = useDispatch();
-  const { userData } =  useUserData();
+
+  const { userData } = useUserData();
+  const { token, userId } = userData;
 
   const handleAddTask = async (
     task: Omit<NewTask, 'userId' | 'createdDate' | 'column'>,
   ) => {
-
-    if (!userData?.token || !userData?.userId) {
+    if (!token || !userId) {
       console.error('Необходим токен и userId для добавления задачи.');
       return;
     }
 
     const newTask: NewTask = {
       ...task,
-      userId: userData?.userId,
+      userId,
       columnId: columnId,
       createdAt: getCurrentDate(),
       completedAt: task.completedAt || '',
@@ -50,7 +51,7 @@ export const AddTaskModal = ({ isOpen, onClose, columnId }: Props) => {
     };
 
     try {
-      const createdTask = await addTaskService(newTask, userData?.token);
+      const createdTask = await addTaskService(newTask, token);
       console.log('Добавленная задача:', createdTask);
       dispatch(addTask({ ...task, id: createdTask.createdTaskId }));
       onClose();

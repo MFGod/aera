@@ -19,6 +19,7 @@ export const addTaskService = async (
     throw new Error('Заголовок должен быть заполнен');
   }
   const { userData } = useUserData();
+  const { userId } = userData;
 
   const response = await fetch('https://localhost:7049/api/user-tasks', {
     method: 'POST',
@@ -27,7 +28,7 @@ export const addTaskService = async (
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      userId: userData?.userId,
+      userId,
       columnId: task.columnId,
       title: task.title,
       description: task.description,

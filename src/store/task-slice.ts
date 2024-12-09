@@ -101,9 +101,10 @@ const tasksSlice = createSlice({
       task.completed = destination === 3;
 
       const { userData } = useUserData();
+      const { token} = userData;
 
-      if (userData?.token) {
-        updatedTaskService(userData?.token, task.id, task)
+      if (token) {
+        updatedTaskService(token, task.id, task)
           .then(() => {
             console.log(`Задача ${taskId} успешно обновлена на сервере.`);
           })

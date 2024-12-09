@@ -15,24 +15,26 @@ interface Props {
 
 export const EditingModal = ({ isOpen, onClose, task }: Props) => {
   const dispatch = useDispatch();
+
   const { userData } = useUserData();
+  const { token, userId } = userData;
 
   const handleUpdateTask = async (task: Task) => {
     try {
 
-      if (!userData?.token) {
+      if (!token) {
         console.error('Token отсутствует.');
         throw new Error('Требуется аутентификация. Попробуйте еще раз.');
       }
 
-      if (!userData?.userId) {
+      if (!userId) {
         console.error('User ID отсутствует.');
         throw new Error(
           'Требуется идентификатор пользователя. Пожалуйста, убедитесь, что вы вошли в систему.',
         );
       }
 
-      const updatedTask = await updatedTaskService(userData?.token, task.id, task);
+      const updatedTask = await updatedTaskService(token, task.id, task);
       dispatch(updateTask(updatedTask));
       onClose();
     } catch (error) {

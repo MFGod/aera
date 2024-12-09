@@ -37,7 +37,9 @@ const Input = styled.input`
 
 export const AddColumnButton = () => {
   const dispatch = useDispatch();
+  
   const { userData } = useUserData();
+  const { token, userId } = userData;
 
   const [title, setTitle] = useState('');
   const [placeholder, setPlaceholder] = useState('Введите название колонки');
@@ -48,7 +50,7 @@ export const AddColumnButton = () => {
       return;
     }
 
-    if (!userData?.token || !userData?.userId) {
+    if (!token || !userId) {
       console.error('Необходим токен и userId для добавления колонки.');
       return;
     }
@@ -58,7 +60,7 @@ export const AddColumnButton = () => {
     };
 
     try {
-      const createdColumn = await addColumnService(userData?.token, userData?.userId, newColumn);
+      const createdColumn = await addColumnService(token, userId, newColumn);
       dispatch(addColumn({ id: createdColumn.id, title: newColumn.title }));
       setTitle('');
     } catch (error) {

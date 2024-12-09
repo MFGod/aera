@@ -73,7 +73,9 @@ export const DeleteModal: FC<DeleteModalInterface> = ({
 }) => {
   const [taskId, setTaskId] = useState<number | null>(null);
   const dispatch = useDispatch();
+
   const { userData } = useUserData();
+  const { token, userId } = userData;
 
   useEffect(() => {
     if (isOpen) {
@@ -83,15 +85,14 @@ export const DeleteModal: FC<DeleteModalInterface> = ({
 
   const confirmDeleteTask = async () => {
     if (taskId) {
-
-      if (!userData?.token || !userData?.userId) {
+      if (!token || !userId) {
         console.error('Необходим токен и userId для добавления задачи.');
         return;
       }
 
       try {
         // Отправка задачи на сервер
-        await deleteTaskService(taskId, userData?.token);
+        await deleteTaskService(taskId, token);
         dispatch(deleteTask(taskId));
         onClose();
       } catch (error) {

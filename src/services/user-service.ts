@@ -1,6 +1,4 @@
-export const getUserService = async (
-  token: string,
-) => {
+export const getUserService = async (token: string) => {
   try {
     const response = await fetch(`https://localhost:7049/api/users`, {
       method: 'GET',
@@ -9,7 +7,6 @@ export const getUserService = async (
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("Пидор")
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -19,11 +16,8 @@ export const getUserService = async (
     const user = await response.json();
 
     return user;
+  } catch (error) {
+    console.error(`Ошибка`, error);
   }
-  catch (error) {
-    throw new Error(`Ошибка`);
-  }
-}
-export const putUserService = () => {
-
-}
+};
+export const putUserService = () => {};

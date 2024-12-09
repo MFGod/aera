@@ -48,7 +48,9 @@ const Ul = styled.ul`
 
 export const Board = () => {
   const dispatch = useDispatch();
+  
   const { userData } = useUserData();
+  const { token, userId } = userData;
 
   const tasks = useAppSelector(selectFilteredTasks);
   const columns = useAppSelector((state) => state.columns.columns);
@@ -58,9 +60,7 @@ export const Board = () => {
   const [filter, setFilter] = useState<FilterType>('all');
 
   const handleChangeColumnTitle = async (id: number, newTitle: string) => {
-
-
-    if (!userData?.token || !userData?.userId) {
+    if (!token || !userId) {
       console.error('Необходим токен и userId для обновления колонки.');
       return;
     }
@@ -68,8 +68,8 @@ export const Board = () => {
     const taskColumnId = id;
     try {
       const updatedColumn = await updateColumnsService(
-        userData?.token,
-        userData?.userId,
+        token,
+        userId,
         taskColumnId,
         newTitle,
       );
@@ -80,10 +80,10 @@ export const Board = () => {
     }
   };
 
-  const handleDeleteColumn = async (id: number, title: string) => {
+  const handleDeleteColumn = async (id: number) => {
     const taskColumnId = id;
 
-    if (!userData?.token || !taskColumnId) {
+    if (!token || !taskColumnId) {
       console.error(
         'Необходим токен и корректный taskColumnId для удаления колонки.',
       );
@@ -91,7 +91,7 @@ export const Board = () => {
     }
 
     try {
-      await deleteColumnService(userData?.token, taskColumnId);
+      await deleteColumnService(token, taskColumnId);
 
       dispatch(deleteColumn(id));
     } catch (error) {
@@ -136,7 +136,7 @@ export const Board = () => {
                   onEditTitle={(newTitle) =>
                     handleChangeColumnTitle(id, newTitle)
                   }
-                  onDelete={() => handleDeleteColumn(id, title)}
+                  onDelete={() => handleDeleteColumn(id)}
                 />
               );
             })}
