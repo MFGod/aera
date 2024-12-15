@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { useUserData } from '../../hooks/getUserData';
 import { useBoardData } from '../../hooks/useBoardData';
 import {
   deleteColumnService,
@@ -19,6 +18,7 @@ import { filterTaskByFilter, FilterType } from '../../utils/task-utils';
 import { AddColumnButton } from '../buttons/add-column';
 import { DraggableColumn } from '../drag-column/drag-column';
 import { Filter } from '../filter/filter';
+import { useAuthData } from '@/hooks/useAuthData';
 
 export const Wrapper = styled.div`
   padding: 12px 36px;
@@ -48,9 +48,8 @@ const Ul = styled.ul`
 
 export const Board = () => {
   const dispatch = useDispatch();
-  
-  const { userData } = useUserData();
-  const { token, userId } = userData;
+
+  const { token, userId } = useAuthData();
 
   const tasks = useAppSelector(selectFilteredTasks);
   const columns = useAppSelector((state) => state.columns.columns);

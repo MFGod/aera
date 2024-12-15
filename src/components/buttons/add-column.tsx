@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { useUserData } from '../../hooks/getUserData';
 import { addColumnService } from '../../services/column-service';
 import { addColumn, IColumn } from '../../store/column-slice';
 import { StyledAddIcon } from '../../../public/assets/icons/add-column';
+import { useAuthData } from '@/hooks/useAuthData';
 
 const Wrapper = styled.div`
   display: flex;
@@ -37,9 +37,8 @@ const Input = styled.input`
 
 export const AddColumnButton = () => {
   const dispatch = useDispatch();
-  
-  const { userData } = useUserData();
-  const { token, userId } = userData;
+
+  const { token, userId } = useAuthData();
 
   const [title, setTitle] = useState('');
   const [placeholder, setPlaceholder] = useState('Введите название колонки');

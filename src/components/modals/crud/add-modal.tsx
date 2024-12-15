@@ -2,12 +2,12 @@ import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { useUserData } from '../../../hooks/getUserData';
 import { Modal } from '../../../modules/modal';
 import { addTaskService } from '../../../services/task-service';
 import { addTask, Task } from '../../../store/task-slice';
 import { getCurrentDate } from '../../../utils/date-utils';
 import { TaskForm } from '../../form/task';
+import { useAuthData } from '@/hooks/useAuthData';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -28,8 +28,7 @@ interface Props {
 export const AddTaskModal = ({ isOpen, onClose, columnId }: Props) => {
   const dispatch = useDispatch();
 
-  const { userData } = useUserData();
-  const { token, userId } = userData;
+  const { token, userId } = useAuthData();
 
   const handleAddTask = async (
     task: Omit<NewTask, 'userId' | 'createdDate' | 'column'>,

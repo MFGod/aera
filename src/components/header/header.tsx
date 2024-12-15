@@ -3,7 +3,7 @@ import { StyledBurgerIcon } from '../../../public/assets/icons/burger';
 import { StyledPhotoIcon } from '../../../public/assets/icons/photo';
 import { useRouter } from 'next/router';
 
-import { useUserData } from '@/hooks/getUserData';
+import { useUserData } from '@/hooks/useUserData';
 
 const Div = styled.div`
   padding: 22px 36px;

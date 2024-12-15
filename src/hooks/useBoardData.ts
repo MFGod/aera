@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useUserData } from './getUserData';
+import { useUserData } from './useUserData';
 import { getAllColumnsService } from '../services/column-service';
 import { getTasksService } from '../services/task-service';
 import { setColumns } from '../store/column-slice';
 import { setTasks } from '../store/task-slice';
+import { useAuthData } from './useAuthData';
 
 export const useBoardData = () => {
   const dispatch = useDispatch();
-  const { userData, loading: userLoading } = useUserData();
+  const { loading: userLoading } = useUserData();
 
-  const { token, userId } = userData;
+  const { token, userId } = useAuthData();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);

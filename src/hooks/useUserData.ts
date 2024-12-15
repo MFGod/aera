@@ -1,20 +1,18 @@
 import { getUserService } from '@/services/user-service';
 import { useEffect, useState } from 'react';
+import { useAuthData } from './useAuthData';
 
-type UserData = { token: string; userId: string; username: string } | null;
+type UserData = { username: string };
 
 export const useUserData = () => {
-  
-  const [userData, setUserData] = useState<UserData>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
-  
+
+  const { token, userId } = useAuthData();
+
   useEffect(() => {
     const fetchUserData = async () => {
-      const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token');
-      const username = localStorage.getItem('username');
-
-      if (!token || !userId || !username) {
+      if (!token || !userId) {
         setLoading(false);
         return;
       }
@@ -31,11 +29,11 @@ export const useUserData = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [token, userId]);
 
-  const userDataValues = userData
-    ? { ...userData, token, userId }
-    : { token: '', userId: '', username: '' };
+  const userDataValues = userData ?? {
+    username: '',
+  };
 
   return { userData: userDataValues, loading };
 };

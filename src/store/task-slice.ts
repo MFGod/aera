@@ -1,9 +1,9 @@
 // Импортируем необходимые функции и типы из Redux Toolkit
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { useUserData } from '../hooks/getUserData';
 import { updatedTaskService } from '../services/task-service';
 import { getCurrentDate } from '../utils/date-utils';
+import { useAuthData } from '@/hooks/useAuthData';
 
 export interface Task {
   userId: string;
@@ -100,8 +100,8 @@ const tasksSlice = createSlice({
       task.inProgress = destination === 2;
       task.completed = destination === 3;
 
-      const { userData } = useUserData();
-      const { token} = userData;
+      const { token } = useAuthData();
+
 
       if (token) {
         updatedTaskService(token, task.id, task)

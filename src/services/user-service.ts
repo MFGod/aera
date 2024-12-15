@@ -24,19 +24,20 @@ export const getUserService = async (token: string, userId: string) => {
   }
 };
 
-export const updateUserName = async (username: string, token: string, userId: string) => {
+export const updateUsername = async (
+  token: string,
+  userId: string,
+  username: string,
+) => {
   try {
-    const response = await fetch(
-      `https://localhost:7049/api/users`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ username })
+    const response = await fetch(`https://localhost:7049/api/users`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
-    );
+      body: JSON.stringify({ userId, username }),
+    });
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -44,10 +45,10 @@ export const updateUserName = async (username: string, token: string, userId: st
     }
 
     const data = await response.json();
-    console.log("data", data);
+    console.log('data', data);
     return data;
-
   } catch (error) {
     console.error(`Ошибка`, error);
+    throw error;
   }
 };

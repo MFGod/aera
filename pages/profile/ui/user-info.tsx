@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { StyledAddIcon } from '../../../public/assets/icons/add-column';
 import { PhotoIcon } from '../../../public/assets/icons/photo';
-import { useUserData } from '@/hooks/getUserData';
+import { useUserData } from '@/hooks/useUserData';
 import { useState } from 'react';
-import { updateUserName } from '@/services/user-service';
+import { updateUsername } from '@/services/user-service';
+import { useAuthData } from '@/hooks/useAuthData';
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,32 +56,46 @@ const Input = styled.input`
   }
 `;
 
-
 export const UserInfo = () => {
   const { userData } = useUserData();
-  const { username, userId, token } = userData;
+  const { token, userId } = useAuthData();
 
-  const [name, setName] = useState('');
-  const [placeholder, setPlaceholder] = useState('');
+  const [name, setName] = useState(userData?.username || '');
+  const [placeholder, setPlaceholder] = useState(
+    userData?.username || 'Введите новое имя',
+  );
 
-  const handleChangeName = async () => {
+  const handleChangeName = async (newName: string) => {
+    if (!token || !userId) {
+      console.error('Необходим токен и userId для обновления имени.');
+      return;
+    }
+
     if (!name.trim()) {
-      console.error('Название пользователя не может быть пустым');
+      console.error('Имя не может быть пустым');
       return;
     }
-    if (!userId || !token) {
-      console.error('Отсутствует токен или userId');
-      return;
-    }
-    try {
-      const response = await updateUserName(userId, username, token)
-      console.log('Response', response)
-      return response;
 
+    try {
+      const data = await updateUsername(token, userId, newName);
+
+      setName(data.username);
+
+      console.log('Имя пользователя успешно обновлено:', data.username);
     } catch (error) {
-      console.error('Ошибка при смене имени пользователя', error);
+      console.error('Ошибка при обновлении имени пользователя:', error);
     }
-  }
+  };
+  const handleFocus = () => {
+    setPlaceholder(''); 
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (!e.target.value.trim()) {
+      setPlaceholder(userData?.username || 'Введите новое имя'); 
+    }
+    handleChangeName(e.target.value); 
+  };
 
   return (
     <Wrapper>
@@ -89,13 +104,12 @@ export const UserInfo = () => {
       <Div>
         <Input
           type="text"
-          value={username}
-          onChange={(e) => setName(e.target.value)}
-          placeholder={placeholder}
-          onFocus={() => setPlaceholder('')}
+          value={name}
+          onChange={(e) => setName(e.target.value)} 
+          placeholder={userData?.username}
+          onFocus={handleFocus} 
+          onBlur={handleBlur}
         />
-        <button onClick={handleChangeName}>Change Name</button>
-
         <Button>
           Специальность <StyledAddIcon />
         </Button>

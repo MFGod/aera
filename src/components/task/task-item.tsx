@@ -10,10 +10,9 @@ import { formatDate } from '../../utils/date-utils';
 import { DeleteModal } from '../modals/crud/delete-modal';
 import { EditingModal } from '../modals/crud/editing-modal';
 import { StyledDeleteIcon } from '../../../public/assets/icons/delete';
-import { useAppSelector } from '@/store/hooks';
-import { useDispatch } from 'react-redux';
+
 import { TaskInformation } from './task-information';
-import { useSelector } from 'react-redux';
+
 
 const Wrapper = styled.div`
   width: 324px;

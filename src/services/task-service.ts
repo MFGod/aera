@@ -1,4 +1,4 @@
-import { useUserData } from '../hooks/getUserData';
+import { useAuthData } from '@/hooks/useAuthData';
 import { Task } from '../store/task-slice';
 
 interface CreateTaskResponse {
@@ -18,8 +18,7 @@ export const addTaskService = async (
   if (!task.title) {
     throw new Error('Заголовок должен быть заполнен');
   }
-  const { userData } = useUserData();
-  const { userId } = userData;
+  const { userId } = useAuthData();
 
   const response = await fetch('https://localhost:7049/api/user-tasks', {
     method: 'POST',
