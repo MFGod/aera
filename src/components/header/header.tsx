@@ -3,7 +3,8 @@ import { StyledBurgerIcon } from '../../../public/assets/icons/burger';
 import { StyledPhotoIcon } from '../../../public/assets/icons/photo';
 import { useRouter } from 'next/router';
 
-import { useUserData } from '@/hooks/useUserData';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 const Div = styled.div`
   padding: 22px 36px;
@@ -30,9 +31,7 @@ const Button = styled.button`
 
 export const Header = () => {
   const router = useRouter();
-
-  const { userData } = useUserData();
-  const { username } = userData;
+  const username = useSelector((state: RootState) => state.user.username);
 
   return (
     <Div>

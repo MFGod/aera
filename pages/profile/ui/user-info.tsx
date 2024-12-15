@@ -5,6 +5,10 @@ import { useUserData } from '@/hooks/useUserData';
 import { useState } from 'react';
 import { updateUsername } from '@/services/user-service';
 import { useAuthData } from '@/hooks/useAuthData';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { setUsername } from '@/store/user-slice';
 
 const Wrapper = styled.div`
   display: flex;
@@ -57,10 +61,14 @@ const Input = styled.input`
 `;
 
 export const UserInfo = () => {
+  const dispatch = useDispatch();
+  const username = useSelector((state: RootState) => state.user.username);
+
   const { userData } = useUserData();
   const { token, userId } = useAuthData();
 
-  const [name, setName] = useState(userData?.username || '');
+  const [name, setName] = useState(username || '');
+
   const [placeholder, setPlaceholder] = useState(
     userData?.username || 'Введите новое имя',
   );
@@ -78,36 +86,38 @@ export const UserInfo = () => {
 
     try {
       const data = await updateUsername(token, userId, newName);
-
-      setName(data.username);
+      dispatch(setUsername(data.username));
 
       console.log('Имя пользователя успешно обновлено:', data.username);
     } catch (error) {
       console.error('Ошибка при обновлении имени пользователя:', error);
     }
   };
+
   const handleFocus = () => {
-    setPlaceholder(''); 
+    setPlaceholder('');
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (!e.target.value.trim()) {
-      setPlaceholder(userData?.username || 'Введите новое имя'); 
+    const newValue = e.target.value.trim();
+    if (newValue && newValue !== username) {
+      handleChangeName(newValue);
+    } else {
+      setPlaceholder(userData?.username || 'Введите новое имя');
     }
-    handleChangeName(e.target.value); 
   };
+
 
   return (
     <Wrapper>
       <PhotoIcon />
-
       <Div>
         <Input
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)} 
+          onChange={(e) => setName(e.target.value)}
           placeholder={userData?.username}
-          onFocus={handleFocus} 
+          onFocus={handleFocus}
           onBlur={handleBlur}
         />
         <Button>
