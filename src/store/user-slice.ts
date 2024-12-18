@@ -1,16 +1,11 @@
-import { useUserData } from "@/hooks/useUserData";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-const { userData } = useUserData();
-//const { username } = userData
-
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
   username: string;
 }
 
 const initialState: UserState = {
-  username: userData?.username,
+  username: '',
 };
 
 const userSlice = createSlice({

@@ -15,6 +15,8 @@ function CustomApp({ Component, pageProps }: AppProps) {
     }
   }, []);
 
+
+
   return (
     <Provider store={store}>
       <GlobalStyles />

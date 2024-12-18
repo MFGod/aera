@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
+import { useUserData } from '@/hooks/useUserData';
 
 const Div = styled.div`
   padding: 22px 36px;
@@ -33,6 +34,7 @@ export const Header = () => {
   const router = useRouter();
   const username = useSelector((state: RootState) => state.user.username);
 
+  useUserData();
   return (
     <Div>
       <StyledBurgerIcon />

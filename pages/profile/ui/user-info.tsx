@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import { StyledAddIcon } from '../../../public/assets/icons/add-column';
 import { PhotoIcon } from '../../../public/assets/icons/photo';
-import { useUserData } from '@/hooks/useUserData';
-import { useState } from 'react';
-import { updateUsername } from '@/services/user-service';
+import { useEffect, useState } from 'react';
+import {
+  getUploadImage,
+  updateUsername,
+  uploadImageRequest,
+} from '@/services/user-service';
 import { useAuthData } from '@/hooks/useAuthData';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -64,59 +67,133 @@ export const UserInfo = () => {
   const dispatch = useDispatch();
   const username = useSelector((state: RootState) => state.user.username);
 
-  const { userData } = useUserData();
   const { token, userId } = useAuthData();
 
   const [name, setName] = useState(username || '');
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [profileImageLink, setProfileImageLink] = useState<string | null>(null);
 
   const [placeholder, setPlaceholder] = useState(
-    userData?.username || 'Введите новое имя',
+    username || 'Введите новое имя',
   );
 
-  const handleChangeName = async (newName: string) => {
-    if (!token || !userId) {
-      console.error('Необходим токен и userId для обновления имени.');
-      return;
+  useEffect(() => {
+    if (username && username !== name) {
+      setName(username);
     }
+  }, [username]);
 
-    if (!name.trim()) {
-      console.error('Имя не может быть пустым');
+  const handleChangeName = async (newName: string) => {
+    if (newName === username) {
+      console.warn('Новое имя совпадает с текущим.');
       return;
     }
 
     try {
-      const data = await updateUsername(token, userId, newName);
-      dispatch(setUsername(data.username));
+      if (!token || !userId) throw new Error('Необходим токен и userId.');
+      if (!newName.trim()) throw new Error('Имя не может быть пустым.');
 
+      const data = await updateUsername(token, userId, newName.trim());
+      dispatch(setUsername(data.username)); // Обновляем Redux
       console.log('Имя пользователя успешно обновлено:', data.username);
     } catch (error) {
       console.error('Ошибка при обновлении имени пользователя:', error);
     }
   };
 
-  const handleFocus = () => {
-    setPlaceholder('');
-  };
+  const handleFocus = () => setPlaceholder('');
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const newValue = e.target.value.trim();
-    if (newValue && newValue !== username) {
+    if (newValue) {
       handleChangeName(newValue);
     } else {
-      setPlaceholder(userData?.username || 'Введите новое имя');
+      setPlaceholder(username || 'Введите новое имя');
     }
   };
 
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      try {
+        const { profileImageLink } = await uploadImageRequest(
+          userId,
+          token,
+          file,
+        );
+        console.log('profileImageLink', profileImageLink);
+        setProfileImageLink(profileImageLink);
+      } catch (error) {
+        console.error('Ошибка при загрузке изображения:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const getImage = async () => {
+      if (profileImageLink) {
+        try {
+          const url = await getUploadImage(profileImageLink, token);
+          setImageUrl(url);
+        } catch (err) {
+          console.error('Ошибка при получении изображения:', err);
+        }
+      }
+    };
+
+    getImage();
+  }, [profileImageLink, token]);
 
   return (
     <Wrapper>
-      <PhotoIcon />
+      <Input
+        id="uploadImage_url"
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        style={{ display: 'none' }}
+      />
+      <label
+        htmlFor="uploadImage_url"
+        style={{ display: 'block', cursor: 'pointer' }}
+      >
+        <div
+          style={{
+            backgroundColor: '#F2F3F5',
+            borderRadius: '8px',
+            width: '250px',
+            height: '250px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflow: 'hidden',
+          }}
+        >
+          {profileImageLink ? (
+            <img
+              src={profileImageLink}
+              alt="Uploaded"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          ) : (
+            <PhotoIcon />
+          )}
+        </div>
+      </label>
+
       <Div>
         <Input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder={userData?.username}
+          placeholder={username}
           onFocus={handleFocus}
           onBlur={handleBlur}
         />

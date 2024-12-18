@@ -1,39 +1,31 @@
 import { getUserService } from '@/services/user-service';
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useAuthData } from './useAuthData';
-
-type UserData = { username: string };
+import { useDispatch } from 'react-redux';
+import { setUsername } from '@/store/user-slice';
 
 export const useUserData = () => {
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true);
-
   const { token, userId } = useAuthData();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!token || !userId) {
-        setLoading(false);
-        return;
-      }
+      if (!token || !userId) return;
 
       try {
         const user = await getUserService(token, userId);
         console.log('Полученные данные пользователя: ', user);
-        setUserData(user);
+
+        dispatch(setUsername(user.username));
+
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('username', user.username); 
+        }
       } catch (error) {
         console.error('Ошибка при получении данных пользователя', error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchUserData();
-  }, [token, userId]);
-
-  const userDataValues = userData ?? {
-    username: '',
-  };
-
-  return { userData: userDataValues, loading };
+  }, [token, userId, dispatch]);
 };

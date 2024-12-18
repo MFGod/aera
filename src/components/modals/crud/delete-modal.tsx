@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { useUserData } from '../../../hooks/useUserData';
 import { Modal } from '../../../modules/modal';
 import { deleteTaskService } from '../../../services/task-service';
 import { deleteTask, Task } from '../../../store/task-slice';

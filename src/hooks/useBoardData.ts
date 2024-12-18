@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useUserData } from './useUserData';
 import { getAllColumnsService } from '../services/column-service';
 import { getTasksService } from '../services/task-service';
 import { setColumns } from '../store/column-slice';
@@ -10,7 +9,6 @@ import { useAuthData } from './useAuthData';
 
 export const useBoardData = () => {
   const dispatch = useDispatch();
-  const { loading: userLoading } = useUserData();
 
   const { token, userId } = useAuthData();
 
@@ -19,7 +17,7 @@ export const useBoardData = () => {
 
   useEffect(() => {
     const loadBoardData = async () => {
-      if (!token || !userId || userLoading) {
+      if (!token || !userId) {
         setLoading(false);
         return;
       }
@@ -42,7 +40,7 @@ export const useBoardData = () => {
     };
 
     loadBoardData();
-  }, [userId, userLoading, dispatch]);
+  }, [userId, dispatch]);
 
   return { loading, error };
 };

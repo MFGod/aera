@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 
-import { useUserData } from '../../../hooks/useUserData';
 import { Modal } from '../../../modules/modal';
 import { updatedTaskService } from '../../../services/task-service';
 import { Task, updateTask } from '../../../store/task-slice';
