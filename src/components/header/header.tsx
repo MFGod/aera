@@ -30,9 +30,17 @@ const Button = styled.button`
   }
 `;
 
+const UserImage = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
 export const Header = () => {
   const router = useRouter();
   const username = useSelector((state: RootState) => state.user.username);
+  const userimage = useSelector((state: RootState) => state.user.userimage)
 
   useUserData();
   return (
@@ -40,7 +48,11 @@ export const Header = () => {
       <StyledBurgerIcon />
       <button onClick={() => router.push('/all')}>Main</button>
       <Button onClick={() => router.push('/profile')}>
-        <StyledPhotoIcon />
+        {userimage ? (
+          <UserImage src={userimage} alt="User" /> // Отображаем изображение, если оно есть
+        ) : (
+          <StyledPhotoIcon /> // Или отображаем иконку по умолчанию
+        )}
         <p>{username}</p>
       </Button>
     </Div>

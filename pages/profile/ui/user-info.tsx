@@ -11,7 +11,7 @@ import { useAuthData } from '@/hooks/useAuthData';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import { setUsername } from '@/store/user-slice';
+import { setUserImage, setUsername } from '@/store/user-slice';
 
 const Wrapper = styled.div`
   display: flex;
@@ -124,8 +124,15 @@ export const UserInfo = () => {
           token,
           file,
         );
+
+        const url = await getUploadImage(profileImageLink, token);
+        setImageUrl(url);
+        dispatch(setUserImage(url));
+        localStorage.setItem('userImage', profileImageLink);
+
         console.log('profileImageLink', profileImageLink);
         setProfileImageLink(profileImageLink);
+
       } catch (error) {
         console.error('Ошибка при загрузке изображения:', error);
       }
@@ -133,19 +140,26 @@ export const UserInfo = () => {
   };
 
   useEffect(() => {
-    const getImage = async () => {
-      if (profileImageLink) {
-        try {
-          const url = await getUploadImage(profileImageLink, token);
-          setImageUrl(url);
-        } catch (err) {
-          console.error('Ошибка при получении изображения:', err);
+    const userimage = localStorage.getItem('userImage');
+    if (userimage) {
+      setProfileImageLink(userimage);
+      
+      // Загрузить URL для отображения
+      const fetchImageUrl = async () => {
+        if (token) {
+          try {
+            const url = await getUploadImage(userimage, token);
+            setImageUrl(url);
+          } catch (error) {
+            console.error('Ошибка при получении изображения:', error);
+          }
         }
-      }
-    };
+      };
 
-    getImage();
-  }, [profileImageLink, token]);
+      fetchImageUrl();
+    }
+  }, [token]);
+
 
   return (
     <Wrapper>
@@ -172,9 +186,9 @@ export const UserInfo = () => {
             overflow: 'hidden',
           }}
         >
-          {profileImageLink ? (
+          {imageUrl ? (
             <img
-              src={profileImageLink}
+              src={imageUrl}
               alt="Uploaded"
               style={{
                 width: '100%',
@@ -206,4 +220,4 @@ export const UserInfo = () => {
       </Div>
     </Wrapper>
   );
-};
+};  
