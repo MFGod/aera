@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import {
   getUserService,
   updateUsername,
-  uploadImageRequest,
+  uploadImageService,
 } from '@/services/user-service';
 import { useAuthData } from '@/hooks/useAuthData';
 import { useDispatch } from 'react-redux';
@@ -111,7 +111,7 @@ export const UserInfo = () => {
 
     if (file) {
       try {
-        const { profileImageLink } = await uploadImageRequest(
+        const { profileImageLink } = await uploadImageService(
           userId,
           token,
           file,

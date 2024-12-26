@@ -53,7 +53,7 @@ export const updateUsername = async (
   }
 };
 
-export const uploadImageRequest = async (
+export const uploadImageService = async (
   userId: string,
   token: string,
   file: File,
@@ -86,35 +86,35 @@ export const uploadImageRequest = async (
   }
 };
 
-export const getUploadImage = async (imageName: string, token: string) => {
-  const url = new URL(imageName);
-  const extractedImageName = url.searchParams.get('ImageName');
-  console.log('Extracted Image Name:', extractedImageName);
+//export const getUploadImage = async (imageName: string, token: string) => {
+//  const url = new URL(imageName);
+//  const extractedImageName = url.searchParams.get('ImageName');
+//  console.log('Extracted Image Name:', extractedImageName);
 
-  try {
-    const response = await fetch(
-      `https://localhost:7049/api/users/profile-image?ImageName=${extractedImageName}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
+//  try {
+//    const response = await fetch(
+//      `https://localhost:7049/api/users/profile-image?ImageName=${extractedImageName}`,
+//      {
+//        method: 'GET',
+//        headers: {
+//          Authorization: `Bearer ${token}`,
+//        },
+//      },
+//    );
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Error: ${errorText}`);
-    }
+//    if (!response.ok) {
+//      const errorText = await response.text();
+//      throw new Error(`Error: ${errorText}`);
+//    }
 
-    const imageBlob = await response.blob();
+//    const imageBlob = await response.blob();
 
-    // Создаем URL для использования изображения в компоненте
-    const imageUrl = URL.createObjectURL(imageBlob);
-    console.log('imageUrl', imageUrl);
-    return imageUrl;
-  } catch (error) {
-    console.error('Error fetching image:', error);
-    throw error;
-  }
-};
+//    // Создаем URL для использования изображения в компоненте
+//    const imageUrl = URL.createObjectURL(imageBlob);
+//    console.log('imageUrl', imageUrl);
+//    return imageUrl;
+//  } catch (error) {
+//    console.error('Error fetching image:', error);
+//    throw error;
+//  }
+//};
