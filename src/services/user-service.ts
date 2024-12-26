@@ -1,5 +1,3 @@
-import { headers } from 'next/headers';
-
 export const getUserService = async (token: string, userId: string) => {
   try {
     const response = await fetch(

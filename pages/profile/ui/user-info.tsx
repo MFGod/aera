@@ -3,7 +3,7 @@ import { StyledAddIcon } from '../../../public/assets/icons/add-column';
 import { PhotoIcon } from '../../../public/assets/icons/photo';
 import { useEffect, useState } from 'react';
 import {
-  getUploadImage,
+  getUserService,
   updateUsername,
   uploadImageRequest,
 } from '@/services/user-service';
@@ -66,22 +66,15 @@ const Input = styled.input`
 export const UserInfo = () => {
   const dispatch = useDispatch();
   const username = useSelector((state: RootState) => state.user.username);
+  const userimage = useSelector((state: RootState) => state.user.userimage);
 
   const { token, userId } = useAuthData();
 
   const [name, setName] = useState(username || '');
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [profileImageLink, setProfileImageLink] = useState<string | null>(null);
 
   const [placeholder, setPlaceholder] = useState(
     username || 'Введите новое имя',
   );
-
-  useEffect(() => {
-    if (username && username !== name) {
-      setName(username);
-    }
-  }, [username]);
 
   const handleChangeName = async (newName: string) => {
     if (newName === username) {
@@ -93,9 +86,8 @@ export const UserInfo = () => {
       if (!token || !userId) throw new Error('Необходим токен и userId.');
       if (!newName.trim()) throw new Error('Имя не может быть пустым.');
 
-      const data = await updateUsername(token, userId, newName.trim());
-      dispatch(setUsername(data.username)); // Обновляем Redux
-      console.log('Имя пользователя успешно обновлено:', data.username);
+      const user = await updateUsername(token, userId, newName.trim());
+      dispatch(setUsername(user.username)); 
     } catch (error) {
       console.error('Ошибка при обновлении имени пользователя:', error);
     }
@@ -124,15 +116,7 @@ export const UserInfo = () => {
           token,
           file,
         );
-
-        const url = await getUploadImage(profileImageLink, token);
-        setImageUrl(url);
-        dispatch(setUserImage(url));
-        localStorage.setItem('userImage', profileImageLink);
-
-        console.log('profileImageLink', profileImageLink);
-        setProfileImageLink(profileImageLink);
-
+        dispatch(setUserImage(profileImageLink));
       } catch (error) {
         console.error('Ошибка при загрузке изображения:', error);
       }
@@ -140,26 +124,20 @@ export const UserInfo = () => {
   };
 
   useEffect(() => {
-    const userimage = localStorage.getItem('userImage');
-    if (userimage) {
-      setProfileImageLink(userimage);
-      
-      // Загрузить URL для отображения
-      const fetchImageUrl = async () => {
-        if (token) {
-          try {
-            const url = await getUploadImage(userimage, token);
-            setImageUrl(url);
-          } catch (error) {
-            console.error('Ошибка при получении изображения:', error);
-          }
-        }
-      };
+    if (!token || !userId) return;
 
-      fetchImageUrl();
-    }
-  }, [token]);
+    const fetchUserData = async () => {
+      try {
+        const user = await getUserService(token, userId);
+        dispatch(setUsername(user.username));
+        dispatch(setUserImage(user.profileImageLink));
+      } catch (error) {
+        console.error('Ошибка при загрузке данных пользователя:', error);
+      }
+    };
 
+    fetchUserData();
+  }, [token, userId, dispatch]);
 
   return (
     <Wrapper>
@@ -177,18 +155,18 @@ export const UserInfo = () => {
         <div
           style={{
             backgroundColor: '#F2F3F5',
-            borderRadius: '8px',
-            width: '250px',
-            height: '250px',
+            borderRadius: '150px',
+            width: '150px',
+            height: '150px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             overflow: 'hidden',
           }}
         >
-          {imageUrl ? (
+          {userimage ? (
             <img
-              src={imageUrl}
+              src={userimage}
               alt="Uploaded"
               style={{
                 width: '100%',
@@ -220,4 +198,4 @@ export const UserInfo = () => {
       </Div>
     </Wrapper>
   );
-};  
+};

@@ -5,8 +5,8 @@ interface Props extends ComponentProps<'svg'> {}
 
 export const PhotoIcon: FC<Props> = (props) => (
   <svg
-    width="152"
-    height="152"
+    width="150"
+    height="150"
     viewBox="0 0 152 152"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

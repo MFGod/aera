@@ -49,9 +49,9 @@ export const Header = () => {
       <button onClick={() => router.push('/all')}>Main</button>
       <Button onClick={() => router.push('/profile')}>
         {userimage ? (
-          <UserImage src={userimage} alt="User" /> // Отображаем изображение, если оно есть
+          <UserImage src={userimage} alt="User" /> 
         ) : (
-          <StyledPhotoIcon /> // Или отображаем иконку по умолчанию
+          <StyledPhotoIcon /> 
         )}
         <p>{username}</p>
       </Button>
